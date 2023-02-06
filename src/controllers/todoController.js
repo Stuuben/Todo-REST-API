@@ -1,3 +1,4 @@
+const Tasks = require("../models/Tasks");
 const Todo = require("../models/Todos");
 const { notFoundError, BadRequestError } = require("../utils/error");
 
@@ -106,4 +107,22 @@ exports.deleteTodoById = async (req, res) => {
   await todoToDelete.delete();
 
   return res.sendStatus(204);
+};
+
+exports.addTask = async (req, res) => {
+  console.log(req.params);
+  const todoId = req.params.todoId;
+  const todo = await Todo.findById(todoId);
+
+  const taskId = req.params.taskId;
+  const task = await Tasks.findById(taskId);
+
+  if (!task) throw new notFoundError("Haha du skrev fel");
+
+  todo.tasks.push(taskId);
+  console.log(todo);
+
+  await todo.save();
+
+  return res.json(todo);
 };

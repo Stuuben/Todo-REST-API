@@ -6,6 +6,7 @@ const {
   createNewTodo,
   updateTodoById,
   deleteTodoById,
+  addTask,
 } = require("../controllers/todoController");
 
 router.get("/", getAllTodos);
@@ -13,6 +14,8 @@ router.get("/", getAllTodos);
 router.get("/:todoId", getTodoById);
 
 router.post("/", createNewTodo);
+
+router.post("/:todoId/:taskId", addTask);
 
 router.put("/:todoId", updateTodoById);
 

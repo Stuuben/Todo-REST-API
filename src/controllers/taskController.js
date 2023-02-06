@@ -43,47 +43,23 @@ exports.getTaskById = async (req, res) => {
   return res.json(task);
 };
 
-exports.createNewTaskToTodo = async (req, res) => {
-  const todoId = req.params.todoId;
-  const task = new Tasks({
-    name: "New task",
-    description: "Description of the new task",
-  });
-
-  task.save((error, task) => {
-    if (error) {
-      // Handle error
-    }
-
-    // Add the Task document's _id to the Todo document's tasks array
-    Todos.findByIdAndUpdate(
-      todoId,
-      { $push: { tasks: task._id } },
-      { new: true },
-      (error, todo) => {
-        if (error) {
-          // Handle error
-        }
-
-        // `todo` now contains the updated Todo document with the new Task document's _id added to its tasks array
-      }
-    );
-  });
-
-  /*   const title = req.body.name || "";
+exports.createNewTask = async (req, res) => {
+  console.log("createNewTask");
+  const title = req.body.title || "";
   const description = req.body.description || "";
 
   if (!title) throw new BadRequestError("You must porvide a name stooopid");
 
-  const newTasks = await Tasks.create({
+  const newTask = await Tasks.create({
     title: title,
     description: description,
   });
+
   return res
     .setHeader(
       "Location",
-      `http://localhost:${process.env.PORT}/api/v1/tasks/${newTasks._id}/`
+      `http://localhost:${process.env.PORT}/api/v1/todos/${newTask._id}`
     )
     .status(201)
-    .json(newTasks); */
+    .json(newTask);
 };
