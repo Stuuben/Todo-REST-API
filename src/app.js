@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const Todo = require("./models/Todos");
 const todoRoutes = require("./routes/todoRoutes");
 const taskRoutes = require("./routes/taskRoutes");
+const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 const notFoundMiddleware = require("./middleware/notFoundMiddleware");
 
 /* ------- 1) Skapa våran Express app ------- */
@@ -24,6 +26,8 @@ app.use((req, res, next) => {
 
 app.use("/api/v1/todos", todoRoutes);
 app.use("/api/v1/tasks", taskRoutes);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 // CRUD Projects
 
