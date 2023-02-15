@@ -1,3 +1,5 @@
+const { ValidationError } = require("../utils/error");
+
 exports.errorMiddleware = (error, req, res, next) => {
   console.log(error);
 
@@ -9,6 +11,10 @@ exports.errorMiddleware = (error, req, res, next) => {
   if (error.name === "CastError") {
     customErrorResponse.statusCode = 404;
     customErrorResponse.message = "That id does not exist silly!";
+  }
+
+  if (error instanceof ValidationError) {
+    customErrorResponse.validatonErrors = error.validationErrors;
   }
 
   // prettier-ignore

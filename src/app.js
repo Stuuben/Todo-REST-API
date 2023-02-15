@@ -8,6 +8,7 @@ const taskRoutes = require("./routes/taskRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const notFoundMiddleware = require("./middleware/notFoundMiddleware");
+const { errorMiddleware } = require("./middleware/errorMiddleware");
 
 /* ------- 1) Skapa våran Express app ------- */
 const app = express();
@@ -40,6 +41,8 @@ app.use("/api/v1/auth", authRoutes);
 // PUT /api/v1/projects/:projectId - Update project (by id)
 
 // DELETE /api/v1/projects/:projectId - Delete project (by id)
+
+app.use(errorMiddleware);
 
 /* ------- 2) Start server ------- */
 const port = process.env.PORT || 5000;

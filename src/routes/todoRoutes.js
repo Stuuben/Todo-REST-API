@@ -8,17 +8,18 @@ const {
   deleteTodoById,
   addTask,
 } = require("../controllers/todoController");
+const { isAuthenticated } = require("../middleware/authenticationMiddleware");
 
-router.get("/", getAllTodos);
+router.get("/", isAuthenticated, getAllTodos);
 
-router.get("/:todoId", getTodoById);
+router.get("/:todoId", isAuthenticated, getTodoById);
 
-router.post("/", createNewTodo);
+router.post("/", isAuthenticated, createNewTodo);
 
-router.post("/:todoId/:taskId", addTask);
+router.post("/:todoId/:taskId", isAuthenticated, addTask);
 
-router.put("/:todoId", updateTodoById);
+router.put("/:todoId", isAuthenticated, updateTodoById);
 
-router.delete("/:todoId", deleteTodoById);
+router.delete("/:todoId", isAuthenticated, deleteTodoById);
 
 module.exports = router;

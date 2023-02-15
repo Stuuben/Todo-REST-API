@@ -5,11 +5,12 @@ const {
   createNewTask,
   getTaskById,
 } = require("../controllers/taskController");
+const { isAuthenticated } = require("../middleware/authenticationMiddleware");
 
-router.get("/", getAllTasks);
+router.get("/", isAuthenticated, getAllTasks);
 
-router.get("/:taskId", getTaskById);
+router.get("/:taskId", isAuthenticated, getTaskById);
 
-router.post("/", createNewTask);
+router.post("/", isAuthenticated, createNewTask);
 
 module.exports = router;
